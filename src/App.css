@@ -1,38 +1,91 @@
-.App {
-  text-align: center;
+
+*{
+  box-sizing:border-box;
+}
+html{
+  height:100%;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Arial,sans-serif;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg, #093028, #237a57); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+  color:black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main-title{
+  font-size: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom:1px solid white;
+  color:#2674a3;
+  padding: 5px 10px;
+  background: transparent;
+
+  display:flex;
+  align-items:center;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+i{
+  position:absolute;
+  top:9px;
+  right:43px;
+  left: 11px;
+  height:27px;
+
+}
+
+header img {
+  height:24px;
+  margin-right: 10px;
+}
+
+.text-input{
+  position:fixed;
+  bottom:0;
+  left:0;
+  height:60px;
+  width:100%;
+  background: transparent;
+  border-top: 2px solid white;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.text-input > input {
+  width:calc(100% - 50px);
+  height:33px;
+  color:white;
+  border:1px solid white;
+  border-radius:14px;
+  position:absolute;
+  right:40px;
+  background:#1f1e2e;
+  padding-left:12px;
+  padding-bottom:2px;
+  padding-right:28px;
+  font-size:16px;
+  outline:none;
+}
+.text-input > button {
+  position:absolute;
+  top:15x;
+  right:43px;
+  border-radius:100%;
+  width:27px;
+  height:27px;
+  border:1px solid white;
+  background:white;
+  padding: 5px 2px;
+  cursor: pointer;
+  outline:none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
