@@ -1,39 +1,60 @@
-import React, {useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import './App.css'
 
 function App() {
+  const [messages, setMessages] = useState([])
   
+  console.log(messages)
   return <main>
-  
-  <header> 
-  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-  <img alt = "icon" className="logo"
-    src="https://www.stickpng.com/assets/images/5852cd8058215f0354495f6b.png"
-    />
-    Chatter
-  </header>
 
-  <TextInput onSend = {t=> console.log(t)}/>
- </main>
+    <header> 
+      <img className="logo"
+        alt="logo"
+        src="http://pngimg.com/uploads/gucci/gucci_PNG12.png" 
+      />
+      Chatter
+    </header>
 
+    <div className="messages">
+      {messages.map((m,i)=>{
+        return <div key={i} className="message-wrap">
+          <div className="message">{m}</div>
+        </div>
+      })}
+    </div>
+
+    <TextInput onSend={(text)=> {
+      setMessages([text, ...messages])
+    }} />
+    
+  </main>
 }
 
-function TextInput(props) {
-  var [text, setText] = useState('')
 
-  return <div className = "text-input">
-  <input value ={text}
-    placeholder="Message..."
-    onChange = {e=> setText(e.target.value)}
-  />
-
-  <button onClick = {() => {
-    props.onSend(text)
-    setText('send')
-  }} > 
-  <i class = 'fas fa-angle-right'></i>
-  </button>
+function TextInput(props){
+  var [text, setText] = useState('') 
+  // normal js comment
+  return <div className="text-input-wrap">
+    <input 
+      value={text} 
+      className="text-input"
+      placeholder="write your message"
+      onChange={e=> setText(e.target.value)}
+      onKeyPress={e=> {
+        if(e.key==='Enter') {
+          if(text) props.onSend(text)
+          setText('')
+        }
+      }}
+    />
+    <button onClick={()=> {
+      if(text) props.onSend(text)
+      setText('')
+    }} className="button"
+      disabled={!text}>
+      SEND
+    </button>
   </div>
 }
-export default App;
+
+export default App
