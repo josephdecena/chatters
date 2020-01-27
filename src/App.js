@@ -1,35 +1,57 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './App.css'
+import {db, useDB} from './db'
+import NamePicker from './namePicker'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-function App() {
-  const [messages, setMessages] = useState([])
-  
-  console.log(messages)
+function App(){
+  useEffect(()=>{
+    const {pathname} = window.location
+    if(pathname.length<2) window.location.pathname='home'
+  }, [])
+  return <BrowserRouter>
+    <Route path="/:room" component={Room} />
+  </BrowserRouter>
+}
+
+function Room(props) {
+  const {room} = props.match.params
+  const [name, setName] = useState('')
+  const messages = useDB(room)
+
   return <main>
 
-    <header> 
-      <img className="logo"
-        alt="logo"
-        src="http://pngimg.com/uploads/gucci/gucci_PNG12.png" 
-      />
-      Chatter
+    <header>
+      <div className="logo-wrap">
+        <img className="logo"
+          alt="logo"
+          src="https://images.coollogo.com/images/prism-large-green.png" 
+        />
+        HCDEChatBox
+      </div>
+      <NamePicker onSave={setName} />
     </header>
 
     <div className="messages">
       {messages.map((m,i)=>{
-        return <div key={i} className="message-wrap">
-          <div className="message">{m}</div>
+        return <div key={i} className="message-wrap"
+          from={m.name===name?'me':'you'}>
+          <div className="message">
+            <div className="msg-name">{m.name}</div>
+            <div className="msg-text">{m.text}</div>
+          </div>
         </div>
       })}
     </div>
 
     <TextInput onSend={(text)=> {
-      setMessages([text, ...messages])
+      db.send({
+        text, name, ts: new Date(), room
+      })
     }} />
     
   </main>
 }
-
 
 function TextInput(props){
   var [text, setText] = useState('') 
